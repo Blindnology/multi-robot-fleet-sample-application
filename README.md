@@ -23,13 +23,13 @@ cd multi-robot-fleet-sample-application
 Running this file performs
    * new rosdep definition for - roslibpy
    * rosdep update
-   * rosws update - pulls in husky and aws-robomaker-small-warehouse-world repositories
+   * wstool update - pulls in husky and aws-robomaker-small-warehouse-world repositories
    * Applies minor patches reqd to work with AWS RoboMaker
    * rosdep install -y —from-path <path_of_repos>
-   * colcon build; source install/setup.bash
-   * colcon bundle
+   * catkin build; source devel/setup.bash
+   * source ./exports.sh
 
-Set the appropriate environement variables required for the application
+Set the appropriate environement variables required for the application in `exports.sh`
 ```
 export ROBOT_NAME=server  # unique robot name
 export ROSBRIDGE_STATE=SERVER  # SERVER or CLIENT
@@ -40,11 +40,12 @@ export START_YAW=0
 export HUSKY_REALSENSE_ENABLED=true
 export HUSKY_LMS1XX_ENABLED=true
 export USE_CUSTOM_MOVE_OBJECT_GAZEBO_PLUGIN=true  # set to true if you use custom plugin to move robot. False uses regular gazebo rostopics
+export GAZEBO_PLUGIN_PATH=/home/ubuntu/multi-robot-fleet-sample-application/simulation_ws/build/robot_fleet:$GAZEBO_PLUGIN_PATH
 ```
 
 To see the application running on your local machine, run the following command.
 ```
-source simulation_ws/install/setup.bash
+source simulation_ws/devel/setup.bash
 roslaunch robot_fleet robot_fleet_rosbridge.launch gui:=true
 ```
 

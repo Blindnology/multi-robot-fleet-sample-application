@@ -24,7 +24,7 @@ source /opt/ros/$ROS_DISTRO/setup.sh
 
 #download 3rd party repositories 
 cd $APP_DIR
-rosws update
+wstool update
 
 #Update source list
 cd $BASE_DIR
@@ -51,12 +51,9 @@ rosdep install --from-paths src --ignore-src -r -y
 
 sudo apt-get install python3-apt python3-pip -y
 sudo pip3 install -U setuptools pip
-sudo pip3 install colcon-ros-bundle
-colcon build
-source install/setup.bash
 
-echo -e "We can use roslaunch here. Press any key to colcon bundle, or Ctrl+c to exit"
-echo -e "Times out in 15 seconds"
-read -t 15 -p "Press any key to colcon bundle " some_key
+catkin build
+source devel/setup.bash
 
-colcon bundle
+# add exports
+source ../export.sh
